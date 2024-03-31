@@ -1,0 +1,20 @@
+def find_chicken(chickens, desired_weight):
+    low = 0
+    high = len(chickens) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        guess = chickens[mid]
+        if guess == desired_weight:
+            return mid
+        if guess > desired_weight:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return None
+chickens = [1.2, 1.5, 2.0, 2.3, 2.5, 3.0, 3.2, 3.5, 4.0, 4.5, 5.0]
+desired_weight = 4.0
+result = find_chicken(chickens, desired_weight)
+if result != None:
+    print("Chicken found at position:", result)
+else:
+    print("Chicken not found.")
