@@ -1,0 +1,51 @@
+
+# SAURAV KUNDAR WIFE SEARCHING
+
+from collections import deque
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+def bfs_with_breaks(root):
+    if not root:
+        return [], 0  # Return an empty list and total visited count of 0 if root is None
+
+    result = []
+    queue = deque([(root, [root.value])])  # Tuple of (node, path)
+
+    current_level = 0
+    total_visited = 0
+
+    while queue:
+        node, path = queue.popleft()
+        total_visited += 1  # Increment the count of visited nodes
+        level = len(path) - 1
+
+        if level > current_level:
+            result.append('\n')  # Inserting break after each level
+            current_level = level
+
+        result.append(' -> '.join(map(str, path)))  # Append path to result
+
+        for child in node.children:
+            queue.append((child, path + [child.value]))
+
+    return result, total_visited
+
+# Example usage:
+# Creating a tree
+root = TreeNode(1)
+root.children = [TreeNode(2), TreeNode(3), TreeNode(4)]
+root.children[0].children = [TreeNode(5), TreeNode(6), TreeNode(7)]
+root.children[1].children = [TreeNode(8), TreeNode(9), TreeNode(10)]
+root.children[2].children = [TreeNode(11), TreeNode(12), TreeNode(13)]
+
+# Performing BFS with breaks after each level
+print("Saurav Kundar visited people:")
+result, total_visited = bfs_with_breaks(root)
+for item in result:
+    print(item)
+print("\nTotal number of people visited:", total_visited)
+        
