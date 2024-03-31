@@ -1,0 +1,58 @@
+
+import random
+
+# Function to generate a list of random numbers within a specified range
+def generate_random_numbers(num):
+    random_numbers = [random.randint(0, 50) for _ in range(num)]
+    return random_numbers
+
+# Generating a list of 50 random numbers
+random_list = generate_random_numbers(50)
+print(random_list)
+print("\n")
+
+# Function to check if a number is a Fibonacci number
+def is_fibonacci(n):
+    # Function to check if a number is a perfect square
+    def is_perfect_square(num):
+        square_root = int(num ** 0.5)
+        return square_root * square_root == num
+
+    # Function to check if a number is a Fibonacci number using mathematical properties
+    def is_fib(n):
+        return is_perfect_square(5 * n * n + 4) or is_perfect_square(5 * n * n - 4)
+
+    return is_fib(n)
+
+# Function to filter Fibonacci numbers from a list of numbers
+def filter_fibonacci(numbers):
+    fibonacci_list = []  # Initialize an empty list to store Fibonacci numbers
+    for num in numbers:  # Iterate through each number in the input list
+        # Check if the number is Fibonacci and not already in the list
+        if is_fibonacci(num) and num not in fibonacci_list:
+            fibonacci_list.append(num)  # Add the Fibonacci number to the list
+    return fibonacci_list
+
+def traverse_fibonacci(numbers):
+    index = 0  # Initialize the index pointer
+    while True:
+        print("Current playing song number:", numbers[index])
+        direction = input("Enter '>' to play next song, '<' to play previous song, or 'x' to quit: ").lower()
+
+        if direction == 'next' or direction == 'n' or direction == '>':
+            index = (index + 1) % len(numbers)  # Move to the next Fibonacci number
+        elif direction == 'prev'or direction == 'p' or direction == '<':
+            index = (index - 1) % len(numbers)  # Move to the previous Fibonacci number
+        elif direction == 'exit' or direction == 'e' or direction == 'x':
+            print("Music Stopped.")
+            break
+        else:
+            print("Invalid input. Please enter 'next', 'prev', or 'exit'.")
+
+# Example usage: Filtering Fibonacci numbers from the generated random list
+fibonacci_numbers = filter_fibonacci(random_list)
+print("Song numbers in shuffle: \n", fibonacci_numbers,"\n")
+fibonacci_numbers.sort()  # Sorting the list of Fibonacci numbers
+print("Song numbers in queue: \n", fibonacci_numbers,"\n")
+traverse_fibonacci(fibonacci_numbers)
+        
